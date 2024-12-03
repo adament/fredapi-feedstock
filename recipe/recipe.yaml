@@ -1,13 +1,14 @@
 context:
   name: fredapi
   version: 0.5.2
+  python_min: 3.9
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
   sha256: 405ca048abed4207d93dbc9b7ee8c46d6b473483650323e2f1c094af83d4b247
 
 build:
@@ -17,18 +18,18 @@ build:
 
 requirements:
   host:
-    - python
+    - python ${{ python_min }}
     - pip
     - setuptools
   run:
+    - python >=${{ python_min }}
     - pandas
-    - python
 
 tests:
   - python:
       imports:
         - fredapi
-    # pip_check: false
+      python_version: ${{ python_min }}
 
 about:
   license: Apache-2.0
